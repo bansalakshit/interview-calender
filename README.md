@@ -10,11 +10,12 @@ The **Interview Calendar API** is a Nest.js-based application that allows interv
 ### **1️⃣ Prerequisites**
 - [Node.js](https://nodejs.org/) (v18 recommended)
 - [Docker](https://www.docker.com/get-started)
+- [Swagger](https://swagger.io/docs)
 
 ### **2️⃣ Clone the Repository**
 ```sh
-git clone <repository_url>
-cd interview-calendar-api
+git clone https://github.com/bansalakshit/interview-calender.git
+cd interview-calendar
 ```
 
 ### **3️⃣ Install Dependencies**
@@ -40,24 +41,41 @@ docker build -t interview-calendar .
 
 ### **2️⃣ Run the Docker Container**
 ```sh
-docker run -p 8001:8001 interview-calendar
+docker run -d -p 8001:8001 interview-calendar
 ```
 
 The API will now be accessible at **http://localhost:8001**.
 
 ---
 
+## Swagger API Documentation
+
+Swagger UI is available to explore the API endpoints easily.
+
+### Access Swagger UI
+
+Once the server is running, open the following URL in your browser:
+```sh
+http://localhost:8001/api-docs
+```
+
+---
+
 ## Project Structure
 ```sh
-/interview-calendar-api
 ├── src
+│   ├── main.ts
 │   ├── app.module.ts
+│   ├── app.controller.ts
+│   ├── app.service.ts
 │   ├── availability
 │   │   ├── availability.module.ts
 │   │   ├── availability.controller.ts
 │   │   ├── availability.service.ts
 ├── Dockerfile
 ├── package.json
+├── package-lock.json
 ├── tsconfig.json
+├── tsconfig.build.json
 ├── README.md
 ```
