@@ -1,3 +1,4 @@
+
 # Interview Calendar API
 
 ## Overview
@@ -55,9 +56,7 @@ Swagger UI is available to explore the API endpoints easily.
 ### Access Swagger UI
 
 Once the server is running, open the following URL in your browser:
-```sh
-http://localhost:8001/api-docs
-```
+**http://localhost:8001/api-docs**
 
 ---
 
@@ -69,13 +68,128 @@ http://localhost:8001/api-docs
 │   ├── app.controller.ts
 │   ├── app.service.ts
 │   ├── availability
+│   │   ├── dto
+│   │   │   ├── availability.dto.ts
 │   │   ├── availability.module.ts
 │   │   ├── availability.controller.ts
 │   │   ├── availability.service.ts
+│   ├── helper
+│   │   ├── constant.ts
 ├── Dockerfile
 ├── package.json
 ├── package-lock.json
 ├── tsconfig.json
 ├── tsconfig.build.json
 ├── README.md
+```
+
+---
+
+## API Endpoints
+
+### **Set Availability**
+
+#### `POST /availability/:role/:day/:userId`
+
+Set availability for a Candidate or Interviewer.
+
+- **Path Parameters:**
+  - `role`: Role of the user (either `CANDIDATE` or `INTERVIEWER`)
+  - `day`: Day for which the availability is being set (must be one of `Monday`, `Tuesday`, `Wednesday`, etc.)
+  - `userId`: Unique ID of the candidate or interviewer
+
+- **Request Body:**
+```json
+{
+  "name": "Interviewer",
+  "startHour": 10,
+  "endHour": 14
+}
+```
+
+- **Response:**
+```json
+{
+  "role": "INTERVIEWER",
+  "day": "Monday",
+  "name": "Interviewer",
+  "userId": 1,
+  "startHour": 10,
+  "endHour": 14
+}
+```
+  
+- **Request Body:**
+```json
+{
+  "name": "Akshit",
+  "startHour": 12,
+  "endHour": 15
+}
+```
+
+- **Response:**
+```json
+{
+  "role": "CANDIDATE",
+  "day": "Monday",
+  "name": "Akshit",
+  "userId": 2,
+  "startHour": 12,
+  "endHour": 15
+}
+```
+
+---
+
+### **Get All Availabilities**
+
+#### `GET /availability/all`
+
+Get the availability details of all candidates and interviewers.
+
+- **Response:**
+```json
+[
+  {
+    "role": "CANDIDATE",
+    "day": "Monday",
+    "name": "Akshit",
+    "userId": 2,
+    "startHour": 12,
+    "endHour": 15
+  },
+  {
+    "role": "INTERVIEWER",
+    "day": "Monday",
+    "name": "Interviewer",
+    "userId": 1,
+    "startHour": 10,
+    "endHour": 14
+  }
+]
+```
+
+---
+
+### **Get Common Slots**
+
+#### `GET /availability/common-slots?candidateId=<candidateId>`
+
+Get common available slots between a candidate and interviewers.
+
+- **Query Parameters:**
+  - `candidateId`: The ID of the candidate for whom you want to check availability.
+
+- **Response:**
+```json
+[
+  {
+    "day": "Monday",
+    "timeSlots": [
+      "12 - 1 PM",
+      "1 - 2 PM"
+    ]
+  }
+]
 ```

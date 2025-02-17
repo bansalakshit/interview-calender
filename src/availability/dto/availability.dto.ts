@@ -1,21 +1,20 @@
+import { IsInt, Min, Max, IsEnum, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class AvailableSlotsDto {
-    @IsString()
-    @ApiProperty({ description: "user's first name" })
-    firstName: string
+  @ApiProperty()
+  @IsString()
+  name: string;
 
-    @IsString()
-    @ApiProperty({ description: "user's last name" })
-    lastName: string
+  @ApiProperty()
+  @IsInt()
+  @Min(0)
+  @Max(23)
+  startHour: number;
 
-    @IsEmail()
-    @ApiProperty({ description: "user's email" })
-    email: string
-
-    @IsBoolean()
-    @IsOptional()
-    @ApiProperty({ description: 'user is active or not' })
-    isActive?: boolean
+  @ApiProperty()
+  @IsInt()
+  @Min(1)
+  @Max(24)
+  endHour: number;
 }
